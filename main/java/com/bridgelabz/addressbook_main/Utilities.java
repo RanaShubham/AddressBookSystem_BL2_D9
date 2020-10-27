@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbook_main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -225,6 +226,22 @@ public class Utilities {
 			ArrayList<Record> recordList = book.getValue();
 			Stream<Record> matchingRecords = recordList.stream().filter(record -> record.city.equals(cityOrStateToSearch) | record.state.equals(cityOrStateToSearch));
 			matchingRecords.forEach(record -> System.out.println(book.getKey()+": "+record.toString()));
+		}
+	}
+	
+	public static void storeByCityOrState(String city_or_State)
+	{
+		HashMap<String, String> byCity = null;
+		HashMap<String, String> byState = null;
+		
+		for (Entry<String, ArrayList<Record>> book : AddressBookSystem.addressBookStore.entrySet())
+		{
+			ArrayList<Record> recordList = book.getValue();
+			Stream<Record> matchingRecordsByCity = recordList.stream().filter(record -> record.city.equals(city_or_State));
+			Stream<Record> matchingRecordsByState = recordList.stream().filter(record -> record.state.equals(city_or_State));
+			
+			matchingRecordsByCity.forEach(record -> byCity.put(record.firstName+" "+record.lastName, record.city));
+			matchingRecordsByState.forEach(record -> byState.put(record.firstName+" "+record.lastName, record.state));
 		}
 	}
 	
