@@ -22,7 +22,7 @@ public class AddressBookSystem {
 							  "Enter 1 to add a record\n"+
 							  "Enter 2 to delete a record\n"+
 							  "Enter 3 to edit a record\n"+
-							  "Enter 4 to search for a record\n"+
+							  "Enter 4 to search for a record by city or state\n"+
 							  "Enter 5 to exit");
 			
 			int response = input.nextInt();

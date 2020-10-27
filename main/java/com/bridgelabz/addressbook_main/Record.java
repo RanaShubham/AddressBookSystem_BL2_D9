@@ -27,15 +27,22 @@ public class Record {
 	//Returns true if two records have same first name and last name
 	public boolean equals(Record record)
 	{
-		if (this.firstName.equals(record.firstName) && this.lastName.equals(record.lastName))
-			return true;
-		else
+		try {
+
+			if (this.firstName.equals(record.firstName) && this.lastName.equals(record.lastName))
+				return true;
+			else
+				return false;
+		
+		} catch (NullPointerException e) {
+			System.out.println("No such record");
 			return false;
+		}
 	}
 	
 	public String toString()
 	{
-		String recordToPrint = "[ Name- "+this.firstName+" "+this.lastName+" Address-"+this.address+" City-"+this.city+" State-" +this.state+" Email-"+this.email+" Zip-"+this.zip+" PhoneNumber-"+this.phoneNumber+" ]";
+		String recordToPrint = "{ NAME- "+this.firstName+" "+this.lastName+" ADDRESS-"+this.address+" CITY-"+this.city+" STATE-" +this.state+" EMAIL-"+this.email+" ZIP-"+this.zip+" PHONE_NUMBER-"+this.phoneNumber+" }";
 		return recordToPrint;
 		
 	}

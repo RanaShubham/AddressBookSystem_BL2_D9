@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Utilities {
@@ -46,7 +47,7 @@ public class Utilities {
 			Record newRecord = new Record(firstName, lastName, address, city, state, email, pin, phoneNumber);
 			addRecord(AddressBookSystem.addressBookStore.get(bookName), bookName, newRecord);
 			
-			System.out.println("Enter y to add one more person record. Otherwise enter n.");
+			System.out.println("Enter y to add one more record to this book. Otherwise enter n.");
 			String response = input.next();
 			
 			if (response.equals("n"))
@@ -61,14 +62,13 @@ public class Utilities {
 		boolean recordPresentInBook = false;
 		for (Record record : book)
 		{
-			Predicate<Record> recordCheck = R -> R.equals(newRecord);
+			Predicate<Record> recordCheck = passedRecord -> passedRecord.equals(newRecord);
 			
 			if (recordCheck.test(record) )
 			{
 				recordPresentInBook = true;
 			}
 		}
-		book.stream();
 		
 		if (recordPresentInBook)
 		{
@@ -84,14 +84,18 @@ public class Utilities {
 	
 	//Deleting a record using first name
 	static void deleteRecord(String nameOfRecordToDelete, String bookThatHasRecord) 
-	{}
+	{
+		ArrayList<Record> book = AddressBookSystem.addressBookStore.get(bookThatHasRecord);
+		Record recordToBeDeleted = book.stream().filter( record -> record.firstName.equals(nameOfRecordToDelete)).findFirst().get();
+		book.remove(recordToBeDeleted);
+	}
 	
 	
 	//Editing a record using first name
 	static void editRecord(String nameOfRecordToEdit, String bookThatHasRecord)
 	{
 		ArrayList<Record> book = AddressBookSystem.addressBookStore.get(bookThatHasRecord);
-		Record recordToBeEdited = (Record) book.stream().filter( record -> record.firstName.equals(nameOfRecordToEdit));
+		Record recordToBeEdited = book.stream().filter( record -> record.firstName.equals(nameOfRecordToEdit)).findFirst().get();
 		
 		if(recordToBeEdited.equals(null))
 		{
