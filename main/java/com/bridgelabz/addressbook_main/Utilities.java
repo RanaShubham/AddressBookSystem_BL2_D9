@@ -247,6 +247,8 @@ public class Utilities {
 		}
 	}
 	
+	
+	//Method to print the number of records or contacts per city and per state
 	public static void numberOfRecordsPerStateOrPerCity ()
 	{
 		HashMap<String, Integer> recordsPerCity = new HashMap<String, Integer>();
