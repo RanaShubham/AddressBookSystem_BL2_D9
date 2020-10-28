@@ -14,6 +14,7 @@ public class AddressBookSystem {
 	//Main method
 	public static void main(String[] args) 
 	{
+		boolean getOut = false;
 		System.out.println("Welcome to address book system program");
 		
 		while (true)
@@ -53,8 +54,14 @@ public class AddressBookSystem {
 						Utilities.searchByCityOrState(toSearch);
 						break;
 						
-				default : System.exit(0);
+				default:getOut = true;
+						break;
 			}
+			
+			if (getOut)
+				break;
 		}
+		
+		Utilities.numberOfRecordsPerStateOrPerCity();
 	}	
 }

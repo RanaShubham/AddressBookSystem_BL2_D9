@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbook_main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -229,6 +230,7 @@ public class Utilities {
 		}
 	}
 	
+	//To store each record in a two hashMaps of pair name and state AND name and city
 	public static void storeByCityOrState(String city_or_State)
 	{
 		HashMap<String, String> byCity = null;
@@ -245,5 +247,39 @@ public class Utilities {
 		}
 	}
 	
-}
+	public static void numberOfRecordsPerStateOrPerCity ()
+	{
+		HashMap<String, Integer> recordsPerCity = new HashMap<String, Integer>();
+		HashMap<String, Integer> recordsPerState = new HashMap<String, Integer>();
 
+		for (Entry<String, ArrayList<Record>> book : AddressBookSystem.addressBookStore.entrySet())
+		{
+			ArrayList<Record> recordList = book.getValue();
+			
+			//recordList1.stream().filter(data -> data != null).map(record -> recordsPerCity.get(record.city) != null ? recordsPerCity.put(record.city, recordsPerCity.get(record.city)+1) : recordsPerCity.put(record.city, 1));
+			//recordList2.stream().filter(data -> data != null).map(record -> recordsPerState.get(record.state) != null ? recordsPerState.put(record.state, recordsPerState.get(record.state)+1) : recordsPerState.put(record.state, 1));
+			recordList.forEach(data -> {
+				if (recordsPerCity.get(data.city) != null) {
+					recordsPerCity.put(data.city, recordsPerCity.get(data.city)+1);
+				}
+				else
+				{
+					recordsPerCity.put(data.city, 1);
+				}
+			});
+			
+			recordList.forEach(data -> {
+				if (recordsPerState.get(data.state) != null) {
+					recordsPerState.put(data.state, recordsPerState.get(data.state)+1);
+				}
+				else
+				{
+					recordsPerState.put(data.city, 1);
+				}
+			});
+		}
+		
+		System.out.println(recordsPerCity);
+		System.out.println(recordsPerState);
+	}
+}
